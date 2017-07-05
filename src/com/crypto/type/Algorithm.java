@@ -19,6 +19,7 @@ public enum Algorithm {
 	FLETCHER16(FunctionType.SUM, "Fletcher-16"),
 	FLETCHER32(FunctionType.SUM, "Fletcher-32"),
 	ADLER(FunctionType.SUM, "Adler-32"),
+	PEARSON(FunctionType.SUM, "Pearson"),
 	XOR8(FunctionType.SUM, "XOR8"),;
 
 	private final FunctionType functionType;

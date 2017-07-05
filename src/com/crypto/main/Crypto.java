@@ -1,6 +1,5 @@
 package com.crypto.main;
 
-import com.crypto.alogrithm.util.Base;
 import com.crypto.alogrithm.hash.checksums.Adler;
 import com.crypto.alogrithm.hash.checksums.Fletcher16;
 import com.crypto.alogrithm.hash.checksums.Fletcher32;
@@ -16,6 +15,8 @@ import com.crypto.alogrithm.hash.crc.CRC16;
 import com.crypto.alogrithm.hash.crc.CRC32;
 import com.crypto.alogrithm.hash.crc.CRC64;
 import com.crypto.alogrithm.hash.crc.SYSV;
+import com.crypto.alogrithm.hash.noncryptographic.Pearson;
+import com.crypto.alogrithm.util.Base;
 import com.crypto.calculator.Calculator;
 import com.crypto.type.Algorithm;
 import java.awt.Color;
@@ -586,6 +587,9 @@ public class Crypto extends javax.swing.JFrame {
 				break;
 			case XOR8:
 				c = new Calculator(new LRC());
+				break;
+			case PEARSON:
+				c = new Calculator(new Pearson());
 				break;
 			default:
 				c = new Calculator(new CRC16());

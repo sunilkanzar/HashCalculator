@@ -94,10 +94,15 @@ public class Calculator {
 
 	public String toString(Base base) {
 		HashResult result = new HashResult(algo.getHash(), algo.getLength());
+		String hash;
 		if (result.getValue() instanceof Long) {
-			return Long.toString(result.longValue(), base.getBaseValue());
+			hash = Long.toString(result.longValue(), base.getBaseValue());
 		} else {
-			return Integer.toString(result.intValue(), base.getBaseValue());
+			hash = Integer.toString(result.intValue(), base.getBaseValue());
 		}
+		if(hash.startsWith("-")) {
+			hash = hash.substring(1);
+		}
+		return hash;
 	}
 }
