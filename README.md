@@ -1,6 +1,6 @@
 # HashCalculator
 
-Full java implementaion of **Hashing** and **CRC** Listed in [This Page](https://en.wikipedia.org/wiki/List_of_hash_functions)
+Pure java implementaion of **Hashing** and **CRC** Listed in [This Page](https://en.wikipedia.org/wiki/List_of_hash_functions)
 
   * CRC
     * BSD checksum
