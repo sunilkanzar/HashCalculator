@@ -15,8 +15,13 @@ import com.crypto.alogrithm.hash.crc.CRC16;
 import com.crypto.alogrithm.hash.crc.CRC32;
 import com.crypto.alogrithm.hash.crc.CRC64;
 import com.crypto.alogrithm.hash.crc.SYSV;
+import com.crypto.alogrithm.hash.noncryptographic.FNVOne32;
+import com.crypto.alogrithm.hash.noncryptographic.FNVOne64;
+import com.crypto.alogrithm.hash.noncryptographic.FNVOneA32;
+import com.crypto.alogrithm.hash.noncryptographic.FNVOneA64;
+import com.crypto.alogrithm.hash.noncryptographic.FNVZero32;
+import com.crypto.alogrithm.hash.noncryptographic.FNVZero64;
 import com.crypto.alogrithm.hash.noncryptographic.Pearson;
-import com.crypto.alogrithm.util.Base;
 import com.crypto.calculator.Calculator;
 import com.crypto.type.Algorithm;
 import java.awt.Color;
@@ -86,6 +91,7 @@ public class Crypto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HashCalculator");
+        setLocation(new java.awt.Point(0, 0));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -418,10 +424,10 @@ public class Crypto extends javax.swing.JFrame {
 
     private void btnCalculateMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateMainActionPerformed
 		Calculator c = getCalculator();
-		textBinHash.setText(c.toString(Base.BIN));
-		textOctHash.setText(c.toString(Base.OCTAL));
-		textDecHash.setText(c.toString(Base.DECIMAL));
-		textHexHash.setText(c.toString(Base.HEXADECIMAL));
+		textBinHash.setText(c.toBinaryString());
+		textOctHash.setText(c.toOctalString());
+		textDecHash.setText(c.toDecimalString());
+		textHexHash.setText(c.toHexString());
 		setMessaage("Calculated for " + comboAlgo.getSelectedItem().toString(), 1500);
     }//GEN-LAST:event_btnCalculateMainActionPerformed
 
@@ -485,10 +491,10 @@ public class Crypto extends javax.swing.JFrame {
 		//</editor-fold>
 
 		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Crypto().setVisible(true);
-			}
+		java.awt.EventQueue.invokeLater(() -> {
+			Crypto mainWindow = new Crypto();
+			mainWindow.setVisible(true);
+			mainWindow.setLocationRelativeTo(null);
 		});
 	}
 
@@ -590,6 +596,24 @@ public class Crypto extends javax.swing.JFrame {
 				break;
 			case PEARSON:
 				c = new Calculator(new Pearson());
+				break;
+			case FNVONE32:
+				c = new Calculator(new FNVOne32());
+				break;
+			case FNVONE64:
+				c = new Calculator(new FNVOne64());
+				break;
+			case FNVONEA32:
+				c = new Calculator(new FNVOneA32());
+				break;
+			case FNVONEA64:
+				c = new Calculator(new FNVOneA64());
+				break;
+			case FNVZERO32:
+				c = new Calculator(new FNVZero32());
+				break;
+			case FNVZERO64:
+				c = new Calculator(new FNVZero64());
 				break;
 			default:
 				c = new Calculator(new CRC16());

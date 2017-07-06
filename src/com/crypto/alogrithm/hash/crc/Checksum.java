@@ -17,7 +17,7 @@ public abstract class Checksum {
 	/**
 	 * initial hash value
 	 */
-	private long initHash;
+	protected long initHash;
 
 	/**
 	 * Value to XOR with final hash bits
@@ -28,7 +28,6 @@ public abstract class Checksum {
 	 * it will update hash with passed {@code byte data} and return new hash
 	 *
 	 * @param data byte data to add in hash
-	 * @return hash in {@code long} form
 	 */
 	abstract public void update(byte data);
 

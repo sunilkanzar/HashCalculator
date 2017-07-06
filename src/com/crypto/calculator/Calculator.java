@@ -1,7 +1,6 @@
 package com.crypto.calculator;
 
 import com.crypto.alogrithm.hash.crc.Checksum;
-import com.crypto.alogrithm.util.Base;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -92,17 +91,27 @@ public class Calculator {
 		return algo.getHash();
 	}
 
-	public String toString(Base base) {
+	public String toBinaryString() {
 		HashResult result = new HashResult(algo.getHash(), algo.getLength());
-		String hash;
-		if (result.getValue() instanceof Long) {
-			hash = Long.toString(result.longValue(), base.getBaseValue());
-		} else {
-			hash = Integer.toString(result.intValue(), base.getBaseValue());
-		}
-		if(hash.startsWith("-")) {
-			hash = hash.substring(1);
-		}
+		String hash = result.getValue() instanceof Long ? Long.toBinaryString(result.longValue()) : Integer.toBinaryString(result.intValue());
+		return hash;
+	}
+
+	public String toOctalString() {
+		HashResult result = new HashResult(algo.getHash(), algo.getLength());
+		String hash = result.getValue() instanceof Long ? Long.toOctalString(result.longValue()) : Integer.toOctalString(result.intValue());
+		return hash;
+	}
+
+	public String toDecimalString() {
+		HashResult result = new HashResult(algo.getHash(), algo.getLength());
+		String hash = result.getValue() instanceof Long ? Long.toString(result.longValue()) : Integer.toString(result.intValue());
+		return hash;
+	}
+
+	public String toHexString() {
+		HashResult result = new HashResult(algo.getHash(), algo.getLength());
+		String hash = result.getValue() instanceof Long ? Long.toHexString(result.longValue()) : Integer.toHexString(result.intValue());
 		return hash;
 	}
 }
