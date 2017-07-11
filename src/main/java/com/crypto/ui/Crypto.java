@@ -1,4 +1,4 @@
-package com.crypto.main;
+package com.crypto.ui;
 
 import com.crypto.alogrithm.hash.checksums.Adler;
 import com.crypto.alogrithm.hash.checksums.Fletcher16;
@@ -41,6 +41,8 @@ import javax.swing.border.Border;
  */
 public class Crypto extends javax.swing.JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Creates new form NewJFrame
 	 */
@@ -66,13 +68,13 @@ public class Crypto extends javax.swing.JFrame {
         btnCalculate = new javax.swing.JButton();
         body = new javax.swing.JPanel();
         tabPane = new javax.swing.JTabbedPane();
-        tabTextPane = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        tabText = new javax.swing.JPanel();
+        sPanPlainText = new javax.swing.JScrollPane();
         txtPlain = new javax.swing.JTextArea();
         btnCalculateMain = new javax.swing.JButton();
         lblPlainText = new javax.swing.JLabel();
         lblHashText = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        panResults = new javax.swing.JPanel();
         textBinHash = new javax.swing.JTextField();
         lblBin = new javax.swing.JLabel();
         textOctHash = new javax.swing.JTextField();
@@ -86,17 +88,22 @@ public class Crypto extends javax.swing.JFrame {
         progress = new javax.swing.JProgressBar();
         lblProgress = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
-        textMenu = new javax.swing.JMenu();
-        helpMenu = new javax.swing.JMenu();
+        menuEdit = new javax.swing.JMenu();
+        menuCopyBin = new javax.swing.JMenuItem();
+        menuCopyOct = new javax.swing.JMenuItem();
+        menuCopyDec = new javax.swing.JMenuItem();
+        menuCopyHex = new javax.swing.JMenuItem();
+        sep1 = new javax.swing.JPopupMenu.Separator();
+        menuPaste = new javax.swing.JMenuItem();
+        menuHash = new javax.swing.JMenu();
+        menuCalculate = new javax.swing.JMenuItem();
+        menuHelp = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HashCalculator");
         setLocation(new java.awt.Point(0, 0));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -106,30 +113,10 @@ public class Crypto extends javax.swing.JFrame {
         toolBar.setRollover(true);
         toolBar.setToolTipText("");
 
-        comboFunction.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboFunctionActionPerformed(evt);
-            }
-        });
         toolBar.add(comboFunction);
 
-        comboFunctionType.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboFunctionTypeItemStateChanged(evt);
-            }
-        });
-        comboFunctionType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboFunctionTypeActionPerformed(evt);
-            }
-        });
         toolBar.add(comboFunctionType);
 
-        comboAlgo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboAlgoActionPerformed(evt);
-            }
-        });
         toolBar.add(comboAlgo);
 
         btnPaste.setText("Paste");
@@ -162,7 +149,7 @@ public class Crypto extends javax.swing.JFrame {
 
         txtPlain.setColumns(20);
         txtPlain.setRows(5);
-        jScrollPane2.setViewportView(txtPlain);
+        sPanPlainText.setViewportView(txtPlain);
 
         btnCalculateMain.setText("Calculate");
         btnCalculateMain.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +160,11 @@ public class Crypto extends javax.swing.JFrame {
 
         lblPlainText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPlainText.setText("Palin Text");
+        lblPlainText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPlainTextMouseClicked(evt);
+            }
+        });
 
         lblHashText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHashText.setText("Hash");
@@ -219,87 +211,87 @@ public class Crypto extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panResultsLayout = new javax.swing.GroupLayout(panResults);
+        panResults.setLayout(panResultsLayout);
+        panResultsLayout.setHorizontalGroup(
+            panResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panResultsLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblHex)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textHexHash, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panResultsLayout.createSequentialGroup()
                 .addComponent(lblBin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textBinHash, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panResultsLayout.createSequentialGroup()
                 .addComponent(lblOct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textOctHash, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panResultsLayout.createSequentialGroup()
                 .addComponent(lblDec)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textDecHash, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panResultsLayout.setVerticalGroup(
+            panResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panResultsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textBinHash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textOctHash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblOct))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textDecHash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDec))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textHexHash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHex))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout tabTextPaneLayout = new javax.swing.GroupLayout(tabTextPane);
-        tabTextPane.setLayout(tabTextPaneLayout);
-        tabTextPaneLayout.setHorizontalGroup(
-            tabTextPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tabTextPaneLayout.createSequentialGroup()
+        javax.swing.GroupLayout tabTextLayout = new javax.swing.GroupLayout(tabText);
+        tabText.setLayout(tabTextLayout);
+        tabTextLayout.setHorizontalGroup(
+            tabTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabTextLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(tabTextPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(tabTextPaneLayout.createSequentialGroup()
-                        .addGroup(tabTextPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(tabTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sPanPlainText)
+                    .addGroup(tabTextLayout.createSequentialGroup()
+                        .addGroup(tabTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblHashText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCalculateMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(lblPlainText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        tabTextPaneLayout.setVerticalGroup(
-            tabTextPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabTextPaneLayout.createSequentialGroup()
+        tabTextLayout.setVerticalGroup(
+            tabTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabTextLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblPlainText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sPanPlainText, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tabTextPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tabTextPaneLayout.createSequentialGroup()
+                .addGroup(tabTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tabTextLayout.createSequentialGroup()
                         .addComponent(btnCalculateMain, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblHashText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        tabPane.addTab("Text", tabTextPane);
-        tabTextPane.getAccessibleContext().setAccessibleName("");
+        tabPane.addTab("Text", tabText);
+        tabText.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
         body.setLayout(bodyLayout);
@@ -340,12 +332,52 @@ public class Crypto extends javax.swing.JFrame {
                         .addComponent(lblProgress))))
         );
 
-        textMenu.setText("Text");
-        textMenu.setToolTipText("");
-        menu.add(textMenu);
+        menuEdit.setText("Edit");
 
-        helpMenu.setText("Help");
-        menu.add(helpMenu);
+        menuCopyBin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuCopyBin.setText("Copy Binary");
+        menuCopyBin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCopyBinActionPerformed(evt);
+            }
+        });
+        menuEdit.add(menuCopyBin);
+
+        menuCopyOct.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuCopyOct.setText("Copy Octal");
+        menuEdit.add(menuCopyOct);
+
+        menuCopyDec.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuCopyDec.setText("Copy Decimal");
+        menuEdit.add(menuCopyDec);
+
+        menuCopyHex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuCopyHex.setText("Copy Hexadecimal");
+        menuEdit.add(menuCopyHex);
+        menuEdit.add(sep1);
+
+        menuPaste.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        menuPaste.setText("Paste");
+        menuEdit.add(menuPaste);
+
+        menu.add(menuEdit);
+
+        menuHash.setText("Hash");
+        menuHash.setToolTipText("");
+
+        menuCalculate.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuCalculate.setText("Calculate");
+        menuCalculate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCalculateActionPerformed(evt);
+            }
+        });
+        menuHash.add(menuCalculate);
+
+        menu.add(menuHash);
+
+        menuHelp.setText("Help");
+        menu.add(menuHelp);
 
         setJMenuBar(menu);
         menu.getAccessibleContext().setAccessibleName("menu");
@@ -381,30 +413,10 @@ public class Crypto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboAlgoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAlgoActionPerformed
-		// TODO add your handling code here:
-    }//GEN-LAST:event_comboAlgoActionPerformed
-
-    private void comboFunctionTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFunctionTypeActionPerformed
-		// TODO add your handling code here:
-    }//GEN-LAST:event_comboFunctionTypeActionPerformed
-
-    private void comboFunctionTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboFunctionTypeItemStateChanged
-
-    }//GEN-LAST:event_comboFunctionTypeItemStateChanged
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-		// TODO add your handling code here:
-    }//GEN-LAST:event_formWindowOpened
-
-    private void comboFunctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFunctionActionPerformed
-		// TODO add your handling code here:
-    }//GEN-LAST:event_comboFunctionActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 		setUpUserInterface();
-		setFillCombos();
-    }//GEN-LAST:event_formWindowActivated
+		fillCombos();
+    }//GEN-LAST:event_formWindowOpened
 
     private void textDecHashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDecHashActionPerformed
 		// TODO add your handling code here:
@@ -413,13 +425,13 @@ public class Crypto extends javax.swing.JFrame {
     private void lblOctMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOctMouseClicked
 		Clipboard clpBrb = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clpBrb.setContents(new StringSelection(textOctHash.getText()), null);
-		setMessaage("Octal Hash Copied", 700);
+		setMessaage("Octal Hash Copied", 700, Color.GREEN);
     }//GEN-LAST:event_lblOctMouseClicked
 
     private void lblBinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBinMouseClicked
 		Clipboard clpBrb = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clpBrb.setContents(new StringSelection(textBinHash.getText()), null);
-		setMessaage("Binary Hash Copied", 700);
+		setMessaage("Binary Hash Copied", 700, Color.GREEN);
     }//GEN-LAST:event_lblBinMouseClicked
 
     private void btnCalculateMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateMainActionPerformed
@@ -428,19 +440,19 @@ public class Crypto extends javax.swing.JFrame {
 		textOctHash.setText(c.toOctalString());
 		textDecHash.setText(c.toDecimalString());
 		textHexHash.setText(c.toHexString());
-		setMessaage("Calculated for " + comboAlgo.getSelectedItem().toString(), 1500);
+		setMessaage("Calculated for " + comboAlgo.getSelectedItem().toString(), 2000, Color.GREEN);
     }//GEN-LAST:event_btnCalculateMainActionPerformed
 
     private void lblDecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDecMouseClicked
 		Clipboard clpBrb = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clpBrb.setContents(new StringSelection(textDecHash.getText()), null);
-		setMessaage("Decimal Hash Copied", 700);
+		setMessaage("Decimal Hash Copied", 700, Color.GREEN);
     }//GEN-LAST:event_lblDecMouseClicked
 
     private void lblHexMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHexMouseClicked
 		Clipboard clpBrb = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clpBrb.setContents(new StringSelection(textHexHash.getText()), null);
-		setMessaage("Hexadecimal Hash Copied", 700);
+		setMessaage("Hexadecimal Hash Copied", 700, Color.GREEN);
     }//GEN-LAST:event_lblHexMouseClicked
 
     private void btnPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasteActionPerformed
@@ -449,18 +461,30 @@ public class Crypto extends javax.swing.JFrame {
 			if (t != null && t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
 				String text = (String) t.getTransferData(DataFlavor.stringFlavor);
 				txtPlain.setText(text);
-				setMessaage("Pasted in Plain Text", 700);
+				setMessaage("Pasted in Plain Text", 700, Color.GREEN);
 			} else {
-				setMessaage("Data not supported", 1000);
+				setMessaage("Data not supported", 1000, Color.RED);
 			}
 		} catch (UnsupportedFlavorException | IOException e) {
-			setMessaage("Data not supported", 1000);
+			setMessaage("Data not supported", 1000, Color.RED);
 		}
     }//GEN-LAST:event_btnPasteActionPerformed
 
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
 		btnCalculateMainActionPerformed(evt);
     }//GEN-LAST:event_btnCalculateActionPerformed
+
+    private void lblPlainTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPlainTextMouseClicked
+
+    }//GEN-LAST:event_lblPlainTextMouseClicked
+
+    private void menuCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCalculateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuCalculateActionPerformed
+
+    private void menuCopyBinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCopyBinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuCopyBinActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -478,16 +502,9 @@ public class Crypto extends javax.swing.JFrame {
 					break;
 				}
 			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Crypto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Crypto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Crypto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
 			java.util.logging.Logger.getLogger(Crypto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
-		//</editor-fold>
 		//</editor-fold>
 
 		/* Create and display the form */
@@ -507,9 +524,6 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboAlgo;
     private javax.swing.JComboBox<String> comboFunction;
     private javax.swing.JComboBox<String> comboFunctionType;
-    private javax.swing.JMenu helpMenu;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblBin;
     private javax.swing.JLabel lblDec;
     private javax.swing.JLabel lblHashText;
@@ -519,14 +533,25 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JLabel lblPlainText;
     private javax.swing.JLabel lblProgress;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem menuCalculate;
+    private javax.swing.JMenuItem menuCopyBin;
+    private javax.swing.JMenuItem menuCopyDec;
+    private javax.swing.JMenuItem menuCopyHex;
+    private javax.swing.JMenuItem menuCopyOct;
+    private javax.swing.JMenu menuEdit;
+    private javax.swing.JMenu menuHash;
+    private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenuItem menuPaste;
+    private javax.swing.JPanel panResults;
     private javax.swing.JPanel panStatus;
     private javax.swing.JProgressBar progress;
+    private javax.swing.JScrollPane sPanPlainText;
+    private javax.swing.JPopupMenu.Separator sep1;
     private javax.swing.JTabbedPane tabPane;
-    private javax.swing.JPanel tabTextPane;
+    private javax.swing.JPanel tabText;
     private javax.swing.JTextField textBinHash;
     private javax.swing.JTextField textDecHash;
     private javax.swing.JTextField textHexHash;
-    private javax.swing.JMenu textMenu;
     private javax.swing.JTextField textOctHash;
     private javax.swing.JToolBar toolBar;
     private javax.swing.JTextArea txtPlain;
@@ -535,12 +560,15 @@ public class Crypto extends javax.swing.JFrame {
 	private void setUpUserInterface() {
 		comboFunction.setVisible(false);
 		comboFunctionType.setVisible(false);
-		lblMessage.setText("");
 		lblProgress.setVisible(false);
 		progress.setVisible(false);
+		
+		getRootPane().setDefaultButton(btnCalculate);
+		
+		setMessaage("Welcome to HashCalculator", 3000, Color.GREEN);
 	}
 
-	private void setFillCombos() {
+	private void fillCombos() {
 		for (Algorithm value : Algorithm.values()) {
 			comboAlgo.addItem(value.getName());
 			comboFunctionType.addItem(value.getFunctionType().getName());
@@ -622,21 +650,33 @@ public class Crypto extends javax.swing.JFrame {
 		return c;
 	}
 
-	private void setMessaage(String msg, long time) {
+	private void setMessaage(String msg, int time, Color c) {
+		if (c.equals(Color.RED)) {
+			c = new Color(0xff3333);
+		} else if (c.equals(Color.GREEN)) {
+			c = new Color(0x339933);
+		}
+
 		lblMessage.setText("  " + msg + "  ");
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
+
 		lblMessage.setBorder(border);
+
+		lblMessage.setForeground(c);
 
 		Thread t = new Thread(() -> {
 			try {
 				Thread.sleep(time);
-			} catch (InterruptedException ex) {
+			} catch (InterruptedException e) {
 				lblMessage.setText("");
 				lblMessage.setBorder(BorderFactory.createEmptyBorder());
+				lblMessage.setForeground(null);
 			}
 			lblMessage.setText("");
 			lblMessage.setBorder(BorderFactory.createEmptyBorder());
+			lblMessage.setForeground(null);
 		});
+
 		t.start();
 	}
 }

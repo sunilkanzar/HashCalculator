@@ -93,25 +93,21 @@ public class Calculator {
 
 	public String toBinaryString() {
 		HashResult result = new HashResult(algo.getHash(), algo.getLength());
-		String hash = result.getValue() instanceof Long ? Long.toBinaryString(result.longValue()) : Integer.toBinaryString(result.intValue());
-		return hash;
+		return result.getValue() instanceof Long ? Long.toBinaryString(result.longValue()) : Integer.toBinaryString(result.intValue());
 	}
 
 	public String toOctalString() {
 		HashResult result = new HashResult(algo.getHash(), algo.getLength());
-		String hash = result.getValue() instanceof Long ? Long.toOctalString(result.longValue()) : Integer.toOctalString(result.intValue());
-		return hash;
+		return result.getValue() instanceof Long ? Long.toOctalString(result.longValue()) : Integer.toOctalString(result.intValue());
 	}
 
 	public String toDecimalString() {
 		HashResult result = new HashResult(algo.getHash(), algo.getLength());
-		String hash = result.getValue() instanceof Long ? Long.toString(result.longValue()) : Integer.toString(result.intValue());
-		return hash;
+		return result.getValue() instanceof Long ? Long.toString(result.longValue()) : Integer.toString(result.intValue());
 	}
 
 	public String toHexString() {
 		HashResult result = new HashResult(algo.getHash(), algo.getLength());
-		String hash = result.getValue() instanceof Long ? Long.toHexString(result.longValue()) : Integer.toHexString(result.intValue());
-		return hash;
+		return result.getValue() instanceof Long ? Long.toHexString(result.longValue()) : Integer.toHexString(result.intValue());
 	}
 }
