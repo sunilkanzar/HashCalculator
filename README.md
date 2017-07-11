@@ -20,3 +20,11 @@ Pure java implementaion of **Hashing** and **CRC** Listed in [This Page](https:/
     * Fletcher-32
     * Adler-32
     * XOR8/LRC/Longitudinal redundancy check
+  * Non-cryptographic hash functions
+    * Pearson
+    * Fowler–Noll–Vo 0 32
+    * Fowler–Noll–Vo 1 32
+    * Fowler–Noll–Vo 1a 32
+    * Fowler–Noll–Vo 0 64
+    * Fowler–Noll–Vo 1 64
+    * Fowler–Noll–Vo 1a 64
